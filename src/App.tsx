@@ -1,35 +1,29 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import BrowserAdapter from './utils/browser.adapter';
-import { detectBrowser } from './libs/detectBrowser';
-import FirefoxAdapter from './utils/firefox.adapter';
-import ChromeAdapter from './utils/chome.adapter';
-
+import { detectBrowser } from './utils/detectBrowser';
+import { ChromeService, FirefoxService, TranscriptService } from './services';
 function App() {
-  const [apapter, setAdapter] = useState<BrowserAdapter<BrowserTab> | null>(null);
+  const [transcriptService, setTranscriptService] = useState<TranscriptService | null>(null);
 
   useEffect(() => {
     const browser = detectBrowser();
     if (browser === 'chrome') {
-      setAdapter(new ChromeAdapter()); // Chrome, Edge, Brave
+      setTranscriptService(new TranscriptService(new ChromeService())); // Chrome, Edge, Brave
     } else if (browser === 'firefox') {
-      setAdapter(new FirefoxAdapter()); // Firefox
+      setTranscriptService(new TranscriptService(new FirefoxService()));
     } else {
       console.warn('Navegador no soportado o desconocido');
     }
   }, []);
 
   const onclick = async () => {
-    if (apapter) {
-      await apapter.executeScript(() => {
-        console.log('Hello from the browser!');
-      });
+    if (transcriptService) {
+      transcriptService.transcriptionVideo();
     }
   };
 
   return (
     <>
-      <button onClick={onclick}>Click me Hello</button>
+      <button onClick={onclick}>Click me</button>
     </>
   );
 }
