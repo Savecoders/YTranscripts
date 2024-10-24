@@ -1,1 +1,1 @@
-{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/libs/detectBrowser.ts","./src/utils/browser.adapter.ts","./src/utils/chome.adapter.ts","./src/utils/firefox.adapter.ts"],"version":"5.6.3"}
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/popup/index.tsx","./src/services/browser.adapter.ts","./src/services/chome.service.ts","./src/services/firefox.service.ts","./src/services/index.ts","./src/services/transcript.service.ts","./src/utils/detectBrowser.ts"],"version":"5.6.3"}
