@@ -1,12 +1,14 @@
 import AdapterBrowser from './browser.adapter';
 
 class FirefoxService implements AdapterBrowser<browser.tabs.Tab> {
-  private tab?: browser.tabs.Tab;
+  private currentTab?: browser.tabs.Tab;
 
   constructor() {}
 
-  async getBrowserTab(): Promise<browser.tabs.Tab> {
-    const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+  private async getActiveTab(): Promise<browser.tabs.Tab> {
+    const tabs = await new Promise<browser.tabs.Tab[]>(() => {
+      browser.tabs.query({ active: true, currentWindow: true });
+    });
     if (tabs.length) {
       return tabs[0];
     } else {
@@ -14,17 +16,33 @@ class FirefoxService implements AdapterBrowser<browser.tabs.Tab> {
     }
   }
 
-  async getTab(): Promise<browser.tabs.Tab> {
-    return this.getBrowserTab();
+  async getBrowserTab(): Promise<browser.tabs.Tab> {
+    if (!this.currentTab) {
+      this.currentTab = await this.getActiveTab();
+    }
+    return this.currentTab;
   }
 
-  async executeScript(callback: () => void): Promise<void> {
-    if (!this.tab) {
-      this.tab = await this.getBrowserTab();
-    }
-    await browser.scripting.executeScript({
-      target: { tabId: this.tab.id! },
-      func: callback,
+  async executeScript<R>(callback: () => Promise<R>): Promise<R> {
+    const tab = await this.getBrowserTab();
+    return new Promise<R>((resolve, reject) => {
+      browser.scripting
+        .executeScript({
+          target: { tabId: tab.id! },
+          func: () => {
+            try {
+              const result = callback();
+              if (result instanceof Promise) {
+                result.then(resolve).catch(reject);
+              } else {
+                resolve(result);
+              }
+            } catch (error) {
+              reject(error);
+            }
+          },
+        })
+        .then(() => {});
     });
   }
 }

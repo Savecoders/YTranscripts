@@ -1,6 +1,6 @@
 interface BrowserAdapter<T> {
   getBrowserTab(): Promise<T>;
-  executeScript(callback: () => void): Promise<void>;
+  executeScript<R>(callback: () => Promise<R>): Promise<R>;
 }
 
 export default BrowserAdapter;

@@ -23,12 +23,21 @@ class ChromeService implements AdapterBrowser<chrome.tabs.Tab> {
     return this.currentTab;
   }
 
-  async executeScript(callback: () => void): Promise<void> {
+  async executeScript<R>(callback: () => Promise<R>): Promise<R> {
     const tab = await this.getBrowserTab();
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id! },
-      func: callback,
-    });
+
+    return chrome.scripting
+      .executeScript({
+        target: { tabId: tab.id! },
+        func: callback,
+      })
+      .then(injectionResults =>
+        injectionResults.length ? (injectionResults[0].result as R) : <R>null,
+      )
+      .catch(error => {
+        console.error(error);
+        return <R>null;
+      });
   }
 }
 
