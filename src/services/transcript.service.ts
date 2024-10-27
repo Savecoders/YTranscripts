@@ -17,11 +17,12 @@ class TranscriptService {
     return url?.includes('youtube.com');
   }
 
-  async transcriptionVideo(): Promise<string | undefined> {
+  async textTranscriptionVideo(): Promise<string | null> {
     if (!(await this.isYoutubeTab())) {
-      return;
+      return null;
     }
-    await this.browser.executeScript(async () => {
+
+    const textTranscription = await this.browser.executeScript(async () => {
       // DOM tab selectors
       const ytTranscriptSectionStyle =
         'style-scope ytd-video-description-transcript-section-renderer';
@@ -31,7 +32,7 @@ class TranscriptService {
       const transcriptSectionAviable = document.getElementsByClassName(ytTranscriptSectionStyle);
 
       if (!transcriptSectionAviable) {
-        return;
+        return null;
       }
 
       const trasncriptSectionContent = [...transcriptSectionAviable];
@@ -49,7 +50,7 @@ class TranscriptService {
       const transcriptSegmentsContainer = document.getElementById(transcriptSegmentsContainerID);
 
       if (!transcriptSegmentsContainer) {
-        return;
+        return null;
       }
 
       const transcriptSegments = [...transcriptSegmentsContainer.children];
@@ -66,7 +67,8 @@ class TranscriptService {
       const transcript = transcriptSegmentsText.join(' ');
       return transcript;
     });
-    return;
+
+    return textTranscription;
   }
 }
 
