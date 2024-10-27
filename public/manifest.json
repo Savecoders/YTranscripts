@@ -17,6 +17,6 @@
       "48": "icons/icon-48.png"
     }
   },
-  "permissions": ["store", "activeTab", "scripting", "tabs", "http://*/*", "https://*/*"],
+  "permissions": ["activeTab", "scripting", "tabs"],
   "host_permissions": ["https://*.youtube.com/*"]
 }
