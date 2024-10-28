@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { detectBrowser } from './utils/detectBrowser';
-import { ChromeService, FirefoxService, TranscriptService } from './services';
-import { ClipboardIconButton, ClipboardInput } from '@/components/ui/clipboard';
-import { Button, ClipboardRoot } from '@chakra-ui/react';
-import { InputGroup } from './components/ui/input-group';
-import { SkeletonText } from './components/ui/skeleton';
+import { Button, Flex, Link, Skeleton, Text } from '@chakra-ui/react';
+import { LuExternalLink } from 'react-icons/lu';
+import { detectBrowser } from '@/utils/detectBrowser';
+import { ClipTranscription } from '@/components/ui/clip-transcription';
+import { ChromeService, FirefoxService, TranscriptService } from '@/services';
 function App() {
   const [transcriptService, setTranscriptService] = useState<TranscriptService | null>(null);
   const [textTranscription, setTextTranscript] = useState<string | null | undefined>(null);
@@ -32,26 +31,33 @@ function App() {
 
   return (
     <>
-      <Button style={{ marginBottom: '1rem' }} variant='outline' onClick={onclick}>
+      <Button variant='outline' marginBottom={4} onClick={onclick}>
         Generate Transcript Video 🔥
       </Button>
 
       {isLoading ? (
-        <SkeletonText noOfLines={3} gap='4' />
+        <Skeleton height='135px' marginBottom={4} />
       ) : (
         textTranscription && (
-          <ClipboardRoot maxW='400px' value={textTranscription || ''}>
-            <InputGroup
-              width='full'
-              lineHeight={1}
-              autoFocus
-              endElement={<ClipboardIconButton me='-2' />}
-            >
-              <ClipboardInput />
-            </InputGroup>
-          </ClipboardRoot>
+          <ClipTranscription
+            textTranscription={textTranscription}
+            style={{ marginBottom: '1.2rem' }}
+          />
         )
       )}
+      <Flex justifyContent='center'>
+        <Text>
+          Created by{' '}
+          <Link
+            variant='underline'
+            target='_blank'
+            href='https://github.com/savecoders'
+            colorPalette='teal'
+          >
+            Savecoders <LuExternalLink />
+          </Link>
+        </Text>
+      </Flex>
     </>
   );
 }
