@@ -4,9 +4,11 @@ This extension is a Chrome extension that allows you to download YouTube transcr
 
 ## Installation
 
-- Download the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/youtube-transcripts/ojhcejcbhngchmohlpkddhbcbhmgcjop).
-- Open the extension in Chrome.
-- Click the "Add to Chrome" button.
+- Download this project
+- Execute `pnpm install` and `pnpm run build` or `npm install && npm run build`
+- Open Chrome and go to `chrome://extensions`
+- Enable `Developer mode`
+- Click on `Load unpacked` and select the `dist` folder
 
 ## Details
 
@@ -15,4 +17,13 @@ The extension using
 - TypeScript
 - React
 - SWC
-- Material UI
+- Chakra UI
+
+## Screenshots
+
+![Screenshot](./.github/assets/screenshot.png)
+![Screenshot](./.github/assets/show_transcript.png)
+
+## License
+
+[MIT](./LICENSE)
