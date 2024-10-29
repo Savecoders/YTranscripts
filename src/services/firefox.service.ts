@@ -23,27 +23,20 @@ class FirefoxService implements AdapterBrowser<browser.tabs.Tab> {
     return this.currentTab;
   }
 
-  async executeScript<R>(callback: () => Promise<R>): Promise<R> {
+  async executeScript<R>(callback: () => void): Promise<R> {
     const tab = await this.getBrowserTab();
-    return new Promise<R>((resolve, reject) => {
-      browser.scripting
-        .executeScript({
-          target: { tabId: tab.id! },
-          func: () => {
-            try {
-              const result = callback();
-              if (result instanceof Promise) {
-                result.then(resolve).catch(reject);
-              } else {
-                resolve(result);
-              }
-            } catch (error) {
-              reject(error);
-            }
-          },
-        })
-        .then(() => {});
-    });
+    return browser.scripting
+      .executeScript({
+        target: { tabId: tab.id! },
+        func: callback,
+      })
+      .then(injectionResults =>
+        injectionResults.length ? (injectionResults[0].result as R) : <R>null,
+      )
+      .catch(error => {
+        console.error(error);
+        return <R>null;
+      });
   }
 }
 
