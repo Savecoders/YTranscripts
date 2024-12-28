@@ -6,10 +6,8 @@ class FirefoxService implements AdapterBrowser<browser.tabs.Tab> {
   constructor() {}
 
   private async getActiveTab(): Promise<browser.tabs.Tab> {
-    const tabs = await new Promise<browser.tabs.Tab[]>(() => {
-      browser.tabs.query({ active: true, currentWindow: true });
-    });
-    if (tabs.length) {
+    const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+    if (tabs.length > 0) {
       return tabs[0];
     } else {
       throw new Error('No active tab found');

@@ -6,9 +6,7 @@ class ChromeService implements AdapterBrowser<chrome.tabs.Tab> {
   constructor() {}
 
   private async getActiveTab(): Promise<chrome.tabs.Tab> {
-    const tabs = await new Promise<chrome.tabs.Tab[]>(resolve => {
-      chrome.tabs.query({ active: true, currentWindow: true }, resolve);
-    });
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
     if (tabs.length) {
       return tabs[0];
     } else {
