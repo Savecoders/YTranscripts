@@ -19,7 +19,6 @@ function App() {
   const onclick = async () => {
     if (transcriptService) {
       const text = await transcriptService.textTranscriptionVideo();
-      console.log(text);
       setTextTranscript(text);
     }
   };

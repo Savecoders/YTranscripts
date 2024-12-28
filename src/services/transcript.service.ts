@@ -28,9 +28,8 @@ class TranscriptService {
         'style-scope ytd-video-description-transcript-section-renderer';
       const transcriptSegmentsContainerID = 'segments-container';
 
-      // get transcript s
+      // get transcripts
       const transcriptSectionAviable = document.getElementsByClassName(ytTranscriptSectionStyle);
-
       if (!transcriptSectionAviable) {
         return null;
       }
