@@ -1,6 +1,6 @@
-import BrowserAdapter from './browser.adapter';
+import BrowserAdapter from '@/services/browser/browser.adapter';
 
-class TranscriptService {
+class Transcriptions {
   private readonly browser: BrowserAdapter<BrowserTab>;
 
   constructor(browserAdapter: BrowserAdapter<BrowserTab>) {
@@ -15,6 +15,16 @@ class TranscriptService {
   async isYoutubeTab(): Promise<boolean | undefined> {
     const url = await this.getUrlBroswerTab();
     return url?.includes('youtube.com');
+  }
+
+  async getVideoTitle(): Promise<string | null> {
+    if (!(await this.isYoutubeTab())) {
+      return null;
+    }
+    return this.browser.executeScript(async () => {
+      const titleElement = document.querySelector('h1.style-scope.ytd-watch-metadata yt-formatted-string');
+      return titleElement ? titleElement.textContent : 'Unknown Title';
+    });
   }
 
   async textTranscriptionVideo(): Promise<string | null> {
@@ -71,4 +81,4 @@ class TranscriptService {
   }
 }
 
-export default TranscriptService;
+export default Transcriptions;
