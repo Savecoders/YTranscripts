@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YTranscripts Extension",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Savecoders",
   "description": "A simple extension with get text from YouTube video",
   "icons": {
@@ -18,6 +18,9 @@
     },
     "default_title": "YTranscripts Extension"
   },
+  "chrome_url_overrides": {
+    "newtab": "src/pages/dashboard/index.html"
+  },
   "permissions": [
     "activeTab",
     "scripting",
@@ -26,5 +29,16 @@
   ],
   "host_permissions": [
     "https://*.youtube.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*",
+        "src/pages/dashboard/index.html"
+      ],
+      "matches": [
+        "https://*.youtube.com/*"
+      ]
+    }
   ]
 }
