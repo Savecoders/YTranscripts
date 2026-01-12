@@ -7,7 +7,7 @@ interface ButtonLoadingProps {
   loadingText?: React.ReactNode;
 }
 
-export interface ButtonProps extends ChakraButtonProps, ButtonLoadingProps {}
+export interface ButtonProps extends ChakraButtonProps, ButtonLoadingProps { }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
   const { loading, disabled, loadingText, children, ...rest } = props;

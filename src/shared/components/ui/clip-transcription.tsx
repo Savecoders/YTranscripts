@@ -13,7 +13,7 @@ export function ClipTranscription({ textTranscription, style }: ClipTranscriptio
       <Stack
         direction='row'
         borderRadius={4}
-        p={4}
+        padding={4}
         borderRightStyle={'solid'}
         borderWidth={1}
         whiteSpace={'wrap'}
@@ -27,7 +27,7 @@ export function ClipTranscription({ textTranscription, style }: ClipTranscriptio
             maxWidth: '400px',
             overflowX: 'hidden',
             overflowY: 'auto',
-            maxHeight: '100px',
+            maxHeight: '112px',
             scrollbarWidth: 'none',
           }}
         >
