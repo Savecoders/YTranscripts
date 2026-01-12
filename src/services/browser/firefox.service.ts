@@ -1,30 +1,29 @@
 import AdapterBrowser from './browser.adapter';
 
-class ChromeService implements AdapterBrowser<chrome.tabs.Tab> {
-  private currentTab?: chrome.tabs.Tab;
+class FirefoxService implements AdapterBrowser<browser.tabs.Tab> {
+  private currentTab?: browser.tabs.Tab;
 
-  constructor() {}
+  constructor() { }
 
-  private async getActiveTab(): Promise<chrome.tabs.Tab> {
-    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tabs.length) {
+  private async getActiveTab(): Promise<browser.tabs.Tab> {
+    const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+    if (tabs.length > 0) {
       return tabs[0];
     } else {
       throw new Error('No active tab found');
     }
   }
 
-  async getBrowserTab(): Promise<chrome.tabs.Tab> {
+  async getBrowserTab(): Promise<browser.tabs.Tab> {
     if (!this.currentTab) {
       this.currentTab = await this.getActiveTab();
     }
     return this.currentTab;
   }
 
-  async executeScript<R>(callback: () => Promise<R>): Promise<R> {
+  async executeScript<R>(callback: () => void): Promise<R> {
     const tab = await this.getBrowserTab();
-
-    return chrome.scripting
+    return browser.scripting
       .executeScript({
         target: { tabId: tab.id! },
         func: callback,
@@ -39,4 +38,4 @@ class ChromeService implements AdapterBrowser<chrome.tabs.Tab> {
   }
 }
 
-export default ChromeService;
+export default FirefoxService;
