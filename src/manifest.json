@@ -15,8 +15,16 @@
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",
       "48": "icons/icon-48.png"
-    }
+    },
+    "default_title": "YTranscripts Extension"
   },
-  "permissions": ["activeTab", "scripting", "tabs", "storage"],
-  "host_permissions": ["https://*.youtube.com/*"]
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.youtube.com/*"
+  ]
 }
