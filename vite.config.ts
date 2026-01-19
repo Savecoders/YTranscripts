@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import preact from "@preact/preset-vite";
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { crx } from '@crxjs/vite-plugin';
 import { readFileSync } from 'fs';
@@ -8,7 +8,7 @@ const manifest = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf
 
 export default defineConfig({
   plugins: [
-    react(),
+    preact(),
     tsconfigPaths(),
     crx({ manifest }),
   ],
