@@ -4,7 +4,7 @@ import { LuDownload, LuFileJson, LuRefreshCw, LuImage } from 'react-icons/lu';
 import { useColorMode } from '@/shared/hooks/useColorMode';
 import { DiagramExportBuilder } from '@/services/diagram/exportBuilder.service';
 import { DiagramExporter } from '@/services/diagram/diagramExporter.service';
- 
+
 interface DiagramViewerProps {
   code: string;
   onChange?: (newCode: string) => void;

@@ -90,12 +90,12 @@ function App() {
   };
 
   return (
-    <Flex p={4} minW="320px" margin={4} gap={4} flexDirection="column">
+    <Flex p={4} minW="320px" minH="180px" maxH="auto" gap={4} flexDirection="column" justifyContent="space-between" overflow="hidden">
       <Flex justifyContent="space-between" alignItems="center">
         <Heading size="md">YTranscripts</Heading>
         <Button
           width="32px"
-          variant={existingTranscript ? 'outline' : 'ghost'}
+          variant={isGenerating ? 'solid' : existingTranscript ? 'outline' : 'ghost'}
           onClick={openDashboard}
         >
           <LuArrowRight />
