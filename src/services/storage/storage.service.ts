@@ -10,15 +10,16 @@ export interface TranscriptEntry {
 export interface AppSettings {
   geminiApiKey: string;
   saveHistory: boolean;
+  language: 'en' | 'es';
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
   geminiApiKey: '',
-  saveHistory: true, // Default to true as per "any other flow that is recommended"
+  saveHistory: true,
+  language: 'en',
 };
 
 export class StorageService {
-  /// Get application settings
   static async getSettings(): Promise<AppSettings> {
     if (!chrome?.storage?.local) {
       const stored = localStorage.getItem('appSettings');
@@ -26,7 +27,9 @@ export class StorageService {
     }
 
     const result = await chrome.storage.local.get(['appSettings']);
-    return result.appSettings ? { ...DEFAULT_SETTINGS, ...result.appSettings } : DEFAULT_SETTINGS;
+    return result.appSettings
+      ? { ...DEFAULT_SETTINGS, ...result.appSettings }
+      : DEFAULT_SETTINGS;
   }
 
   /// Save application settings
@@ -41,7 +44,6 @@ export class StorageService {
     await chrome.storage.local.set({ appSettings: newSettings });
   }
 
-  /// save transcript in history
   static async saveTranscript(entry: TranscriptEntry): Promise<void> {
     const settings = await this.getSettings();
     let history = await this.getHistory();
@@ -61,7 +63,6 @@ export class StorageService {
     await chrome.storage.local.set({ transcriptHistory: history });
   }
 
-  /// get transcript history
   static async getHistory(): Promise<TranscriptEntry[]> {
     if (!chrome?.storage?.local) {
       const stored = localStorage.getItem('transcriptHistory');
@@ -71,10 +72,12 @@ export class StorageService {
     return result.transcriptHistory || [];
   }
 
-  /// update a transcript entry
-  static async updateTranscript(id: string, updates: Partial<TranscriptEntry>): Promise<void> {
+  static async updateTranscript(
+    id: string,
+    updates: Partial<TranscriptEntry>,
+  ): Promise<void> {
     const history = await this.getHistory();
-    const index = history.findIndex(item => item.id === id);
+    const index = history.findIndex((item) => item.id === id);
     if (index !== -1) {
       history[index] = { ...history[index], ...updates };
       if (!chrome?.storage?.local) {
@@ -85,9 +88,8 @@ export class StorageService {
     }
   }
 
-  /// delete a transcript entry
   static async deleteTranscript(id: string): Promise<void> {
-    const history = (await this.getHistory()).filter(item => item.id !== id);
+    const history = (await this.getHistory()).filter((item) => item.id !== id);
     if (!chrome?.storage?.local) {
       localStorage.setItem('transcriptHistory', JSON.stringify(history));
       return;
