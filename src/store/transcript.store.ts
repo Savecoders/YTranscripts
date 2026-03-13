@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import i18n from '@/i18n';
 import { StorageService, TranscriptEntry } from '@/services/storage/storage.service';
 
 export interface TranscriptState {
@@ -6,7 +7,6 @@ export interface TranscriptState {
   isLoading: boolean;
   error: string | null;
 
-  // Actions
   loadHistory: () => Promise<void>;
   addTranscript: (entry: TranscriptEntry) => Promise<void>;
   deleteTranscript: (id: string) => Promise<void>;
@@ -26,7 +26,7 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
       set({ history, isLoading: false });
     } catch (error) {
       console.error('Failed to load history:', error);
-      set({ error: 'Failed to load history', isLoading: false });
+      set({ error: i18n.t('store.failedToLoadHistory'), isLoading: false });
     }
   },
 
@@ -34,12 +34,12 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       await StorageService.saveTranscript(entry);
-      // Refresh local state from storage to ensure consistency
       const history = await StorageService.getHistory();
+
       set({ history, isLoading: false });
     } catch (error) {
       console.error('Failed to save transcript:', error);
-      set({ error: 'Failed to save transcript', isLoading: false });
+      set({ error: i18n.t('store.failedToSaveTranscript'), isLoading: false });
     }
   },
 
@@ -48,18 +48,22 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
     try {
       await StorageService.deleteTranscript(id);
       // Optimistic update or refresh
-      const history = get().history.filter(item => item.id !== id);
+      const history = get().history.filter((item) => item.id !== id);
       set({ history, isLoading: false });
     } catch (error) {
       console.error('Failed to delete transcript:', error);
-      set({ error: 'Failed to delete transcript', isLoading: false });
+      set({
+        error: i18n.t('store.failedToDeleteTranscript'),
+        isLoading: false,
+      });
     }
   },
 
   updateTranscript: async (id: string, updates: Partial<TranscriptEntry>) => {
-    // Optimistic update
-    set(state => ({
-      history: state.history.map(item => (item.id === id ? { ...item, ...updates } : item)),
+    set((state) => ({
+      history: state.history.map((item) =>
+        item.id === id ? { ...item, ...updates } : item,
+      ),
     }));
 
     try {
@@ -73,6 +77,6 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
   getTranscriptByUrl: (url: string) => {
     // Normalizes URL slightly to match typical YouTube variations if needed
     // For now, strict check or contains check
-    return get().history.find(item => item.url === url || url.includes(item.url));
+    return get().history.find((item) => item.url === url || url.includes(item.url));
   },
 }));
