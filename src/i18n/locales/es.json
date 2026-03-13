@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "YTranscripts",
+    "createdBy": "Creado por",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "settings": "Configuraciones",
+    "loading": "Cargando...",
+    "error": "Error",
+    "confirm": "Confirmar"
+  },
+  "popup": {
+    "getTranscript": "Obtener Transcripcion",
+    "analyzingVideo": "Analizando Video...",
+    "untitledVideo": "Video sin titulo",
+    "fetchError": "No se pudo obtener la transcripcion. Asegurate de estar en un video de YouTube con subtitulos.",
+    "genericError": "Ocurrio un error."
+  },
+  "dashboard": {
+    "noVideoSelected": "Ningun video seleccionado",
+    "noVideoSelectedDesc": "Selecciona una transcripcion de la barra lateral o genera una nueva."
+  },
+  "sidebar": {
+    "history": "Historial",
+    "noSavedTranscripts": "No hay transcripciones guardadas.",
+    "deleteAriaLabel": "Eliminar"
+  },
+  "transcript": {
+    "transcriptions": "Transcripciones",
+    "conceptMap": "Mapa Conceptual",
+    "generate": "Generar",
+    "regenerate": "Regenerar",
+    "generating": "Generando...",
+    "edit": "Editar",
+    "preview": "Vista previa",
+    "noDiagramYet": "Aun no se ha generado un diagrama.",
+    "noDiagramDesc": "Elige un tipo de diagrama y haz clic en Generar para crear uno con Gemini AI.",
+    "deleteConfirm": "Estas seguro de que quieres eliminar esta transcripcion?",
+    "apiKeyRequired": "Por favor configura tu API Key de Gemini en Configuraciones.",
+    "generateError": "Error al generar el diagrama. Revisa la consola."
+  },
+  "diagram": {
+    "rotate": "Rotar",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "fitToView": "Ajustar a la vista",
+    "syntaxError": "Error de Sintaxis",
+    "noDisplay": "No hay diagrama para mostrar",
+    "exportFailed": "Error de exportacion: {{message}}"
+  },
+  "editor": {
+    "title": "Editor Mermaid",
+    "copyCode": "Copiar codigo",
+    "expand": "Expandir",
+    "collapse": "Contraer"
+  },
+  "diagramTypes": {
+    "flowchart": "Diagrama de Flujo",
+    "mindmap": "Mapa Mental",
+    "sequenceDiagram": "Secuencia",
+    "classDiagram": "Clases",
+    "stateDiagram": "Estados",
+    "erDiagram": "Diagrama ER",
+    "timeline": "Linea de Tiempo"
+  },
+  "settings": {
+    "title": "Configuraciones",
+    "appearance": "Apariencia",
+    "theme": "Tema",
+    "themeDesc": "Alternar entre modo claro y oscuro",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "general": "General",
+    "saveHistory": "Guardar Historial de Transcripciones",
+    "saveHistoryDesc": "Si esta desactivado, solo se conservara la ultima transcripcion generada.",
+    "integrations": "Integraciones",
+    "geminiApi": "Gemini API",
+    "geminiApiDesc": "Configura tu API Key para habilitar la generacion de diagramas",
+    "apiKeyRemoved": "API Key eliminada",
+    "language": "Idioma",
+    "languageDesc": "Elige el idioma de la interfaz",
+    "english": "Ingles",
+    "spanish": "Espanol"
+  },
+  "apiKey": {
+    "configureButton": "Configurar API Key",
+    "dialogTitle": "Configurar API Key",
+    "fieldLabel": "API Key de Gemini",
+    "placeholder": "Ingresa tu API Key de Gemini",
+    "helperText": "Requerida para generar diagramas.",
+    "saveButton": "Guardar Key",
+    "savedSuccess": "API Key de Gemini guardada exitosamente",
+    "invalidKey": "La API Key ingresada no es valida. Por favor revisala e intenta de nuevo."
+  },
+  "colorMode": {
+    "toggleAriaLabel": "Cambiar modo de color"
+  },
+  "store": {
+    "failedToLoadHistory": "Error al cargar el historial",
+    "failedToSaveTranscript": "Error al guardar la transcripcion",
+    "failedToDeleteTranscript": "Error al eliminar la transcripcion"
+  }
+}

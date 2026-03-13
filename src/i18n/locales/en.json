@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "YTranscripts",
+    "createdBy": "Created by",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "copy": "Copy",
+    "copied": "Copied",
+    "settings": "Settings",
+    "loading": "Loading...",
+    "error": "Error",
+    "confirm": "Confirm"
+  },
+  "popup": {
+    "getTranscript": "Get Transcript",
+    "analyzingVideo": "Analyzing Video...",
+    "untitledVideo": "Untitled Video",
+    "fetchError": "Could not fetch transcript. Make sure you are on a YouTube video with captions.",
+    "genericError": "An error occurred."
+  },
+  "dashboard": {
+    "noVideoSelected": "No video selected",
+    "noVideoSelectedDesc": "Select a transcript from the sidebar or generate a new one."
+  },
+  "sidebar": {
+    "history": "History",
+    "noSavedTranscripts": "No saved transcripts.",
+    "deleteAriaLabel": "Delete"
+  },
+  "transcript": {
+    "transcriptions": "Transcriptions",
+    "conceptMap": "Concept Map",
+    "generate": "Generate",
+    "regenerate": "Regenerate",
+    "generating": "Generating...",
+    "edit": "Edit",
+    "preview": "Preview",
+    "noDiagramYet": "No diagram generated yet.",
+    "noDiagramDesc": "Choose a diagram type and click Generate to create one with Gemini AI.",
+    "deleteConfirm": "Are you sure you want to delete this transcript?",
+    "apiKeyRequired": "Please set your Gemini API Key in Settings.",
+    "generateError": "Error generating diagram. Check console."
+  },
+  "diagram": {
+    "rotate": "Rotate",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitToView": "Fit to view",
+    "syntaxError": "Syntax Error",
+    "noDisplay": "No diagram to display",
+    "exportFailed": "Export failed: {{message}}"
+  },
+  "editor": {
+    "title": "Mermaid Editor",
+    "copyCode": "Copy code",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "diagramTypes": {
+    "flowchart": "Flowchart",
+    "mindmap": "Mind Map",
+    "sequenceDiagram": "Sequence",
+    "classDiagram": "Class",
+    "stateDiagram": "State",
+    "erDiagram": "ER Diagram",
+    "timeline": "Timeline"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeDesc": "Toggle between light and dark mode",
+    "light": "Light",
+    "dark": "Dark",
+    "general": "General",
+    "saveHistory": "Save Transcript History",
+    "saveHistoryDesc": "If disabled, only the last generated transcript will be kept.",
+    "integrations": "Integrations",
+    "geminiApi": "Gemini API",
+    "geminiApiDesc": "Configure your API Key to enable diagram generation",
+    "apiKeyRemoved": "API Key removed",
+    "language": "Language",
+    "languageDesc": "Choose the interface language",
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "apiKey": {
+    "configureButton": "Configure API Key",
+    "dialogTitle": "Configure API Key",
+    "fieldLabel": "Gemini API Key",
+    "placeholder": "Enter your Gemini API Key",
+    "helperText": "Required to generate diagrams.",
+    "saveButton": "Save Key",
+    "savedSuccess": "Gemini API key saved successfully",
+    "invalidKey": "The API key entered is not valid. Please check and try again."
+  },
+  "colorMode": {
+    "toggleAriaLabel": "Toggle color mode"
+  },
+  "store": {
+    "failedToLoadHistory": "Failed to load history",
+    "failedToSaveTranscript": "Failed to save transcript",
+    "failedToDeleteTranscript": "Failed to delete transcript"
+  }
+}
