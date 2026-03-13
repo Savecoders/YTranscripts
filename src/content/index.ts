@@ -1,2 +1,2 @@
-import Transcriptions from "./transcript.service";
+import Transcriptions from './transcript.service';
 export { Transcriptions };
