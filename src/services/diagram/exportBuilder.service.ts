@@ -10,12 +10,17 @@ export class DiagramExportBuilder {
     format: 'png',
     backgroundColor: '#ffffff',
     pixelRatio: 3,
-    filename: 'diagram',
+    filename: 'diagram.png',
   };
 
   setFormat(format: 'png' | 'svg' | 'pdf'): this {
     this.config.format = format;
-    this.config.filename = `diagram.${format}`;
+    if (this.config.filename.startsWith('diagram.')) {
+      this.config.filename = `diagram.${format}`;
+    } else {
+      const baseName = this.config.filename.replace(/\.[^.]+$/, '');
+      this.config.filename = `${baseName}.${format}`;
+    }
     return this;
   }
 
@@ -25,12 +30,14 @@ export class DiagramExportBuilder {
   }
 
   setPixelRatio(ratio: number): this {
-    this.config.pixelRatio = ratio;
+    this.config.pixelRatio = Math.max(1, Math.min(5, ratio));
     return this;
   }
 
   setFilename(name: string): this {
-    this.config.filename = name;
+    const ext = this.config.format;
+    const baseName = name.replace(/\.[^.]+$/, '');
+    this.config.filename = `${baseName}.${ext}`;
     return this;
   }
 
