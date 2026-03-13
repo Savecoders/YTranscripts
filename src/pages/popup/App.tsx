@@ -8,17 +8,17 @@ import { Button } from '@/shared/components/ui/button';
 import { nanoid } from 'nanoid';
 import { useTranscriptStore } from '@/store/transcript.store';
 import { ClipTranscription } from '@/shared/components/ui/clip-transcription';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { t } = useTranslation();
   const [transcriptService, setTranscriptService] = useState<Transcriptions | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentUrl, setCurrentUrl] = useState<string | null>(null);
 
-  // Store
   const { loadHistory, addTranscript, getTranscriptByUrl } = useTranscriptStore();
 
   useEffect(() => {
-    // Initialize services and load data
     const init = async () => {
       await loadHistory();
 
@@ -51,29 +51,22 @@ function App() {
         const [transcript, title, url] = await Promise.all([
           transcriptService.textTranscriptionVideo(),
           transcriptService.getVideoTitle(),
-          transcriptService.getUrlBroswerTab()
+          transcriptService.getUrlBroswerTab(),
         ]);
 
         if (transcript) {
           const entry = {
             id: nanoid(),
-            title: title || 'Untitled Video',
+            title: title || t('popup.untitledVideo'),
             url: url || '',
             transcript: transcript,
-            date: Date.now()
+            date: Date.now(),
           };
 
           await addTranscript(entry);
-
-          // Use the updated state to show the copy UI immediately (via existingTranscript check)
-          // The store update will trigger a re-render
-        } else {
-          alert('Could not fetch transcript. Make sure you are on a YouTube video with captions.');
         }
-
       } catch (error) {
         console.error(error);
-        alert('An error occurred.');
       } finally {
         setIsGenerating(false);
       }
@@ -90,9 +83,21 @@ function App() {
   };
 
   return (
-    <Flex p={4} minW="320px" minH="180px" maxH="auto" gap={4} flexDirection="column" justifyContent="space-between" overflow="hidden">
+    <Flex
+      p={4}
+      minW="320px"
+      minH="180px"
+      maxH="auto"
+      gap={4}
+      flexDirection="column"
+      justifyContent="space-between"
+      overflow="hidden"
+      bg={'bg.panel'}
+    >
       <Flex justifyContent="space-between" alignItems="center">
-        <Heading size="md">YTranscripts</Heading>
+        <Heading color={'teal.500'} size="md">
+          {t('common.appName')}
+        </Heading>
         <Button
           width="32px"
           variant={isGenerating ? 'solid' : existingTranscript ? 'outline' : 'ghost'}
@@ -107,30 +112,30 @@ function App() {
           <ClipTranscription
             textTranscription={existingTranscript.transcript}
             style={{ marginBottom: '1.2rem' }}
-          />) : (
+          />
+        ) : (
           <Button
             width="full"
-            variant='outline'
+            variant="outline"
             onClick={handleGenerate}
             loading={isGenerating}
-            loadingText="Analyzing Video..."
+            loadingText={t('popup.analyzingVideo')}
           >
-            Get Transcript
+            {t('popup.getTranscript')}
           </Button>
         )}
-
       </VStack>
 
-      {isGenerating && <Skeleton height='112px' />}
+      {isGenerating && <Skeleton height="112px" />}
 
-      <Flex justifyContent='center'>
+      <Flex justifyContent="center">
         <Text fontSize="xs" color="gray.500">
-          Created by{' '}
+          {t('common.createdBy')}{' '}
           <Link
-            variant='underline'
-            target='_blank'
-            href='https://github.com/savecoders'
-            colorPalette='teal'
+            variant="underline"
+            target="_blank"
+            href="https://github.com/savecoders"
+            colorPalette="teal"
           >
             Savecoders <LuExternalLink />
           </Link>

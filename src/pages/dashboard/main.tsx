@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from '@/shared/components/ui/provider';
+import '@/i18n';
 import '@/index.css';
 import DashboardApp from './DashboardApp';
 
