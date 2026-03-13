@@ -1,4 +1,4 @@
-import { ClipboardRoot, Stack } from '@chakra-ui/react';
+import { ClipboardRoot, Stack, Text } from '@chakra-ui/react';
 import { ClipboardIconButton } from './clipboard';
 import { CSSProperties } from 'react';
 
@@ -9,9 +9,9 @@ interface ClipTranscriptionProps {
 
 export function ClipTranscription({ textTranscription, style }: ClipTranscriptionProps) {
   return (
-    <ClipboardRoot maxW='400px' value={textTranscription || ''}>
+    <ClipboardRoot maxW="400px" value={textTranscription || ''}>
       <Stack
-        direction='row'
+        direction="row"
         borderRadius={4}
         padding={4}
         borderRightStyle={'solid'}
@@ -31,9 +31,9 @@ export function ClipTranscription({ textTranscription, style }: ClipTranscriptio
             scrollbarWidth: 'none',
           }}
         >
-          <p>{textTranscription}</p>
+          <Text color={'gray.500'}>{textTranscription}</Text>
         </div>
-        <ClipboardIconButton me='-2' />
+        <ClipboardIconButton me="-2" />
       </Stack>
     </ClipboardRoot>
   );
