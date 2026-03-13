@@ -12,13 +12,19 @@ export interface InputGroupProps extends BoxProps {
 
 export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
   function InputGroup(props, ref) {
-    const { startElement, startElementProps, endElement, endElementProps, children, ...rest } =
-      props;
+    const {
+      startElement,
+      startElementProps,
+      endElement,
+      endElementProps,
+      children,
+      ...rest
+    } = props;
 
     return (
       <Group ref={ref} {...rest}>
         {startElement && (
-          <InputElement pointerEvents='none' {...startElementProps}>
+          <InputElement pointerEvents="none" {...startElementProps}>
             {startElement}
           </InputElement>
         )}
@@ -28,7 +34,7 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
           ...children.props,
         })}
         {endElement && (
-          <InputElement placement='end' {...endElementProps}>
+          <InputElement placement="end" {...endElementProps}>
             {endElement}
           </InputElement>
         )}

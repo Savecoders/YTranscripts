@@ -3,7 +3,7 @@ import AdapterBrowser from './browser.adapter';
 class ChromeService implements AdapterBrowser<chrome.tabs.Tab> {
   private currentTab?: chrome.tabs.Tab;
 
-  constructor() { }
+  constructor() {}
 
   private async getActiveTab(): Promise<chrome.tabs.Tab> {
     const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -29,10 +29,10 @@ class ChromeService implements AdapterBrowser<chrome.tabs.Tab> {
         target: { tabId: tab.id! },
         func: callback,
       })
-      .then(injectionResults =>
+      .then((injectionResults) =>
         injectionResults.length ? (injectionResults[0].result as R) : <R>null,
       )
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         return <R>null;
       });

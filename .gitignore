@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Not submit agents contributors
+.agents
+.agent
+AGENTS.md
+skills-lock.json

@@ -1,12 +1,8 @@
-import {
-  CloseButton,
-  Dialog,
-  Portal,
-} from "@chakra-ui/react"
+import { CloseButton, Dialog, Portal } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 interface CustomDialogProps {
-  placement?: "top" | "center" | "bottom";
+  placement?: 'top' | 'center' | 'bottom';
   children: ReactNode;
 }
 
@@ -27,7 +23,7 @@ interface CustomDialogFooterProps {
   children: ReactNode;
 }
 
-export const CustomDialog = ({ placement = "center", children }: CustomDialogProps) => {
+export const CustomDialog = ({ placement = 'center', children }: CustomDialogProps) => {
   return (
     <Dialog.Root placement={placement} motionPreset="slide-in-bottom">
       {children}
@@ -36,9 +32,7 @@ export const CustomDialog = ({ placement = "center", children }: CustomDialogPro
 };
 
 CustomDialog.Trigger = ({ children }: CustomDialogTriggerProps) => (
-  <Dialog.Trigger asChild>
-    {children}
-  </Dialog.Trigger>
+  <Dialog.Trigger asChild>{children}</Dialog.Trigger>
 );
 
 CustomDialog.Content = ({ title, children }: CustomDialogContentProps) => (

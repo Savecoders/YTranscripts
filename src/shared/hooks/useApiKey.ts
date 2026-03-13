@@ -40,6 +40,6 @@ export function useApiKeySettings() {
     setApiKey,
     saveApiKey,
     isSaving,
-    isLoading
+    isLoading,
   };
 }

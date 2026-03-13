@@ -1,4 +1,5 @@
 import { Box, VStack, Heading, Text, HStack, IconButton } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 import { TranscriptEntry } from '@/services/storage/storage.service';
 import { LuSettings, LuTrash2, LuVideo } from 'react-icons/lu';
 
@@ -10,13 +11,35 @@ interface SidebarProps {
   onOpenSettings: () => void;
 }
 
-export function Sidebar({ history, selectedId, onSelect, onDelete, onOpenSettings }: SidebarProps) {
+export function Sidebar({
+  history,
+  selectedId,
+  onSelect,
+  onDelete,
+  onOpenSettings,
+}: SidebarProps) {
+  const { t } = useTranslation();
+
   return (
-    <Box w="300px" bg="bg.panel" borderRightWidth="1px" h="100%" display="flex" flexDirection="column">
+    <Box
+      w="300px"
+      bg="bg.panel"
+      borderRightWidth="1px"
+      h="100%"
+      display="flex"
+      flexDirection="column"
+    >
       <Box p={4} borderBottomWidth="1px">
         <HStack justifyContent="space-between">
-          <Heading size="md">History</Heading>
-          <IconButton aria-label="Settings" variant="ghost" size="sm" onClick={onOpenSettings}>
+          <Heading color={'fg'} size="md">
+            {t('sidebar.history')}
+          </Heading>
+          <IconButton
+            aria-label={t('common.settings')}
+            variant="ghost"
+            size="sm"
+            onClick={onOpenSettings}
+          >
             <LuSettings />
           </IconButton>
         </HStack>
@@ -24,7 +47,9 @@ export function Sidebar({ history, selectedId, onSelect, onDelete, onOpenSetting
 
       <VStack flex="1" overflowY="auto" align="stretch" p={2} gap={1}>
         {history.length === 0 && (
-          <Text p={4} color="fg.muted" fontSize="sm" textAlign="center">No saved transcripts.</Text>
+          <Text p={4} color="gray.500" fontSize="sm" textAlign="center">
+            {t('sidebar.noSavedTranscripts')}
+          </Text>
         )}
         {history.map((item) => (
           <HStack
@@ -33,24 +58,35 @@ export function Sidebar({ history, selectedId, onSelect, onDelete, onOpenSetting
             borderRadius="md"
             cursor="pointer"
             bg={selectedId === item.id ? 'colorPalette.subtle' : 'transparent'}
-            _hover={{ bg: selectedId === item.id ? 'colorPalette.subtle' : 'bg.subtle' }}
+            _hover={{
+              bg: selectedId === item.id ? 'colorPalette.subtle' : 'bg.subtle',
+            }}
             onClick={() => onSelect(item.id)}
             justifyContent="space-between"
             data-group
           >
             <HStack overflow="hidden">
-              <Box color="fg.muted"><LuVideo /></Box>
-              <VStack align="start" gap={0} overflow="hidden">
-                <Text fontSize="sm" fontWeight="medium" truncate w="180px">{item.title}</Text>
-                <Text fontSize="xs" color="fg.muted">{new Date(item.date).toLocaleDateString()}</Text>
+              <Box color="fg.muted">
+                <LuVideo />
+              </Box>
+              <VStack color={'inherit'} align="start" gap={0} overflow="hidden">
+                <Text color={'fg'} fontSize="sm" fontWeight="medium" truncate w="180px">
+                  {item.title}
+                </Text>
+                <Text color={'fg.subtle'} fontSize="xs">
+                  {new Date(item.date).toLocaleDateString()}
+                </Text>
               </VStack>
             </HStack>
             <IconButton
-              aria-label="Delete"
+              aria-label={t('sidebar.deleteAriaLabel')}
               size="xs"
               variant="ghost"
               colorPalette="red"
-              onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(item.id);
+              }}
               opacity={0}
               _groupHover={{ opacity: 1 }}
             >

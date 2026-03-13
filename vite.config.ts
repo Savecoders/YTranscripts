@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import preact from "@preact/preset-vite";
+import preact from '@preact/preset-vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { crx } from '@crxjs/vite-plugin';
 import { readFileSync } from 'fs';
@@ -7,11 +7,7 @@ import { readFileSync } from 'fs';
 const manifest = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf-8' }));
 
 export default defineConfig({
-  plugins: [
-    preact(),
-    tsconfigPaths(),
-    crx({ manifest }),
-  ],
+  plugins: [preact(), tsconfigPaths(), crx({ manifest })],
   build: {
     outDir: 'dist',
     chunkSizeWarningLimit: 600,
@@ -40,6 +36,11 @@ export default defineConfig({
               id.includes('/prop-types/')
             ) {
               return 'react-vendor';
+            }
+
+            // Monaco Editor (large, lazy-loaded)
+            if (id.includes('monaco-editor') || id.includes('@monaco-editor')) {
+              return 'monaco-vendor';
             }
           }
         },

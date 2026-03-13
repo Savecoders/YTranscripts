@@ -22,7 +22,9 @@ class Transcriptions {
       return null;
     }
     return this.browser.executeScript(async () => {
-      const titleElement = document.querySelector('h1.style-scope.ytd-watch-metadata yt-formatted-string');
+      const titleElement = document.querySelector(
+        'h1.style-scope.ytd-watch-metadata yt-formatted-string',
+      );
       return titleElement ? titleElement.textContent : 'Unknown Title';
     });
   }
@@ -39,14 +41,16 @@ class Transcriptions {
       const transcriptSegmentsContainerID = 'segments-container';
 
       // get transcripts
-      const transcriptSectionAviable = document.getElementsByClassName(ytTranscriptSectionStyle);
+      const transcriptSectionAviable = document.getElementsByClassName(
+        ytTranscriptSectionStyle,
+      );
       if (!transcriptSectionAviable) {
         return null;
       }
 
       const trasncriptSectionContent = [...transcriptSectionAviable];
 
-      trasncriptSectionContent.forEach(el => {
+      trasncriptSectionContent.forEach((el) => {
         // click button in transcript section
         if (el.tagName === 'YTD-BUTTON-RENDERER') {
           el.getElementsByTagName('button')[0].click();
@@ -54,9 +58,11 @@ class Transcriptions {
       });
 
       // wait for transcript to load
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
-      const transcriptSegmentsContainer = document.getElementById(transcriptSegmentsContainerID);
+      const transcriptSegmentsContainer = document.getElementById(
+        transcriptSegmentsContainerID,
+      );
 
       if (!transcriptSegmentsContainer) {
         return null;
@@ -64,7 +70,7 @@ class Transcriptions {
 
       const transcriptSegments = [...transcriptSegmentsContainer.children];
 
-      const transcriptSegmentsText = transcriptSegments.map(el => {
+      const transcriptSegmentsText = transcriptSegments.map((el) => {
         // el is div and need get yt-formatted-string tag
         const ytFormattedString = el.getElementsByTagName('yt-formatted-string');
         if (ytFormattedString.length > 0) {

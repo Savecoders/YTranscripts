@@ -18,27 +18,12 @@
     },
     "default_title": "YTranscripts Extension"
   },
-  "chrome_url_overrides": {
-    "newtab": "src/pages/dashboard/index.html"
-  },
-  "permissions": [
-    "activeTab",
-    "scripting",
-    "tabs",
-    "storage"
-  ],
-  "host_permissions": [
-    "https://*.youtube.com/*"
-  ],
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "host_permissions": ["https://*.youtube.com/*"],
   "web_accessible_resources": [
     {
-      "resources": [
-        "icons/*",
-        "src/pages/dashboard/index.html"
-      ],
-      "matches": [
-        "https://*.youtube.com/*"
-      ]
+      "resources": ["icons/*", "src/pages/dashboard/index.html"],
+      "matches": ["https://*.youtube.com/*"]
     }
   ]
 }

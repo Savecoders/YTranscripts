@@ -3,10 +3,13 @@ import AdapterBrowser from './browser.adapter';
 class FirefoxService implements AdapterBrowser<browser.tabs.Tab> {
   private currentTab?: browser.tabs.Tab;
 
-  constructor() { }
+  constructor() {}
 
   private async getActiveTab(): Promise<browser.tabs.Tab> {
-    const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+    const tabs = await browser.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
     if (tabs.length > 0) {
       return tabs[0];
     } else {
@@ -28,10 +31,10 @@ class FirefoxService implements AdapterBrowser<browser.tabs.Tab> {
         target: { tabId: tab.id! },
         func: callback,
       })
-      .then(injectionResults =>
+      .then((injectionResults) =>
         injectionResults.length ? (injectionResults[0].result as R) : <R>null,
       )
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         return <R>null;
       });
