@@ -1,14 +1,14 @@
 import { useColorMode } from '@/shared/hooks/useColorMode';
 import type { IconButtonProps } from '@chakra-ui/react';
 import { ClientOnly, IconButton, Skeleton } from '@chakra-ui/react';
-import { ThemeProvider } from 'next-themes';
 import { ThemeProviderProps } from 'next-themes/dist/types';
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuMoon, LuSun } from 'react-icons/lu';
 
 export function ColorModeProvider(props: ThemeProviderProps) {
-  return <ThemeProvider attribute="class" disableTransitionOnChange {...props} />;
+  // return <ThemeProvider attribute="class" disableTransitionOnChange {...props} />;
+  return <>{props.children}</>
 }
 
 export function ColorModeIcon() {

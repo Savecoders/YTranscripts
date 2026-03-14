@@ -7,43 +7,28 @@ import { readFileSync } from 'fs';
 const manifest = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf-8' }));
 
 export default defineConfig({
-  plugins: [preact(), tsconfigPaths(), crx({ manifest })],
+  plugins: [
+    preact({ prefreshEnabled: false, reactAliasesEnabled: true }),
+    tsconfigPaths(),
+    crx({ manifest }),
+  ],
+  resolve: {
+    alias: {
+      react: 'preact/compat',
+      'react-dom/test-utils': 'preact/test-utils',
+      'react-dom': 'preact/compat',
+      'react/jsx-runtime': 'preact/jsx-runtime',
+    },
+  },
+  optimizeDeps: {
+    include: ['@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion'],
+  },
   build: {
     outDir: 'dist',
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       input: {
         dashboard: 'src/pages/dashboard/index.html',
-      },
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (
-              id.includes('@chakra-ui') ||
-              id.includes('@emotion') ||
-              id.includes('framer-motion') ||
-              id.includes('next-themes')
-            ) {
-              return 'ui-vendor';
-            }
-
-            // Core React
-            if (
-              id.includes('/react/') ||
-              id.includes('/react-dom/') ||
-              id.includes('/react-icons/') ||
-              id.includes('/scheduler/') ||
-              id.includes('/prop-types/')
-            ) {
-              return 'react-vendor';
-            }
-
-            // Monaco Editor (large, lazy-loaded)
-            if (id.includes('monaco-editor') || id.includes('@monaco-editor')) {
-              return 'monaco-vendor';
-            }
-          }
-        },
       },
     },
   },
