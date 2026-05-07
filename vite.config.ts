@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import preact from '@preact/preset-vite';
+import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { crx } from '@crxjs/vite-plugin';
 import { readFileSync } from 'fs';
@@ -8,18 +8,11 @@ const manifest = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf
 
 export default defineConfig({
   plugins: [
-    preact({ prefreshEnabled: false, reactAliasesEnabled: true }),
+    react(),
     tsconfigPaths(),
     crx({ manifest }),
   ],
-  resolve: {
-    alias: {
-      react: 'preact/compat',
-      'react-dom/test-utils': 'preact/test-utils',
-      'react-dom': 'preact/compat',
-      'react/jsx-runtime': 'preact/jsx-runtime',
-    },
-  },
+
   optimizeDeps: {
     include: ['@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion'],
   },
