@@ -4,6 +4,8 @@ import { ReactNode } from 'react';
 interface CustomDialogProps {
   placement?: 'top' | 'center' | 'bottom';
   children: ReactNode;
+  open?: boolean;
+  onOpenChange?: (details: { open: boolean }) => void;
 }
 
 interface CustomDialogTriggerProps {
@@ -23,9 +25,9 @@ interface CustomDialogFooterProps {
   children: ReactNode;
 }
 
-export const CustomDialog = ({ placement = 'center', children }: CustomDialogProps) => {
+export const CustomDialog = ({ placement = 'center', open, onOpenChange, children }: CustomDialogProps) => {
   return (
-    <Dialog.Root placement={placement} motionPreset="slide-in-bottom">
+    <Dialog.Root placement={placement} motionPreset="slide-in-bottom" open={open} onOpenChange={onOpenChange}>
       {children}
     </Dialog.Root>
   );

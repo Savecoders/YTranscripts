@@ -17,6 +17,7 @@ export function DefineApiKey({ initialApiKey, onSave }: DefineApiKeyProps) {
   const [inputKey, setInputKey] = useState(initialApiKey);
   const [isValidating, setIsValidating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setInputKey(initialApiKey);
@@ -31,6 +32,7 @@ export function DefineApiKey({ initialApiKey, onSave }: DefineApiKeyProps) {
       setIsSaving(true);
       await onSave(inputKey);
       setIsSaving(false);
+      setIsOpen(false);
       toaster.create({
         title: t('apiKey.savedSuccess'),
         type: 'success',
@@ -44,7 +46,11 @@ export function DefineApiKey({ initialApiKey, onSave }: DefineApiKeyProps) {
   };
 
   return (
-    <CustomDialog placement="center">
+    <CustomDialog
+      placement="center"
+      open={isOpen}
+      onOpenChange={(e) => setIsOpen(e.open)}
+    >
       <CustomDialog.Trigger>
         <Button variant="outline">
           <LuKey /> {t('apiKey.configureButton')}
