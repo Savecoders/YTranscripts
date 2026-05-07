@@ -6,9 +6,10 @@ import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuMoon, LuSun } from 'react-icons/lu';
 
+import { ThemeProvider } from 'next-themes';
+
 export function ColorModeProvider(props: ThemeProviderProps) {
-  // return <ThemeProvider attribute="class" disableTransitionOnChange {...props} />;
-  return <>{props.children}</>
+  return <ThemeProvider attribute="class" disableTransitionOnChange {...props} />;
 }
 
 export function ColorModeIcon() {
